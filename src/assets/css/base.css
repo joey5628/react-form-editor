@@ -1,0 +1,41 @@
+* {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button, input, select, textarea {
+  font-family : inherit;
+  font-size   : inherit;
+  line-height : inherit;
+  color       : inherit;
+}
+
+ul,
+ol {
+  list-style : none;
+}
+
+// Remove the clear button of a text input control in IE10+
+input::-ms-clear, input::-ms-reveal {
+  display : none;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: @link-color;
+}
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section {
+    display: block
+}
+html, body, #app {
+    width: 100%;
+    height: 100%;
+}
+body {
+  font-size: 14px;
+  color: #4e5b68;
+  background: #F0F1F3;
+}
