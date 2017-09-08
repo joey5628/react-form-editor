@@ -1,15 +1,14 @@
 import React, {Component} from 'react'
+import './index.less'
 
-export default class Hello extends Component {
+export default class Property extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <div>
-                <span>zhangyi</span>
-            </div>
+            <div className="property"></div>
         )
     }
 }

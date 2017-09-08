@@ -12,9 +12,8 @@ export default class Palette extends Component {
 
     onDragStart = (e) => {
         console.log('onDragStart')
-
-        console.log('e.target:', e.target)
-        e.dataTransfer.effectAllowed = "move";
+        // console.log('e.target:', e.target)
+        // e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setData("text/html", e.target.outerHTML);
         // e.dataTransfer.setDragImage(e.target, 0, 0);
         return true;
@@ -26,32 +25,35 @@ export default class Palette extends Component {
 
     onDragEnter = (e) => {
         console.log('onDragEnter')
+        let target = e.target
+        target.style.border = '1px solid red';
     }
 
     onDragOver = (e) => {
         console.log('onDragOver')
-        if (e.preventDefault) {
-          e.preventDefault();
-        }
-        e.dataTransfer.dropEffect = 'move';
-        return false;
+        e.preventDefault();
+        // e.dataTransfer.dropEffect = 'move';
+        // return false;
     }
 
     onDragLeave = (e) => {
         console.log('onDragLeave')
+        let target = e.target
+        target.style.border = '1px dashed #333';
     }
 
     onDrop = (e) => {
         console.log('onDrop')
         console.log('e.target:', e.target)
+        e.preventDefault();
         if (e.stopPropagation) {
           e.stopPropagation();
         }
-
         // if (dragEl != this) {
         //   dragEl.innerHTML = this.innerHTML;
-          e.target.innerHTML = e.dataTransfer.getData('text/html');
+        e.target.innerHTML = e.dataTransfer.getData('text/html');
         // }
+        e.target.style.border = '1px dashed #333';
         return false;
     }
 
@@ -69,10 +71,24 @@ export default class Palette extends Component {
                             拖拽
                         </div>
                     </div>
-                    <div className="render"
-                        onDragEnter={this.onDragEnter}
-                        onDragOver={this.onDragOver}
-                        onDrop={this.onDrop}>
+                    <div className="render">
+                        <div className="row">
+                            <div className="span4"
+                                onDragEnter={this.onDragEnter}
+                                onDragOver={this.onDragOver}
+                                onDragLeave={this.onDragLeave}
+                                onDrop={this.onDrop}></div>
+                            <div className="span4"
+                                onDragEnter={this.onDragEnter}
+                                onDragOver={this.onDragOver}
+                                onDragLeave={this.onDragLeave}
+                                onDrop={this.onDrop}></div>
+                            <div className="span4"
+                                onDragEnter={this.onDragEnter}
+                                onDragOver={this.onDragOver}
+                                onDragLeave={this.onDragLeave}
+                                onDrop={this.onDrop}></div>
+                        </div>
                     </div>
                     <div className="property"></div>
                 </div>

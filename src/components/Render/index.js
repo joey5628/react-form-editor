@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
 import './index.less'
+import Drop from '../Drop/'
 
-export default class CommonHeader extends Component {
+export default class Render extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <div className="header">
-                <h2>react-form-editor</h2>
+            <div className="render">
+                <Drop></Drop>
             </div>
         )
     }
