@@ -4,9 +4,11 @@
  */
 import { combineReducers } from 'redux'
 import render from './render/renderReducer'
+import modules from './modules/modulesReducer'
 
 const rootReducer = combineReducers({
-    render
+    render,
+    modules
 })
 
 export default rootReducer

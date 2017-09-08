@@ -7,7 +7,8 @@ import './index.less'
 
 function mapStateToProps (state) {
     return {
-        render: state.render
+        render: state.render,
+        modules: state.modules
     }
 }
 
@@ -44,10 +45,11 @@ class Drop extends Component {
             event.stopPropagation()
         }
 
-        let data = event.dataTransfer.getData('text')
+        // let data = event.dataTransfer.getData('text')
+        let data = this.props.modules.draggingModule
         console.log('data:', data);
         this.refs.drop.classList.remove('drop-hover');
-        this.props.actions.addRow(JSON.parse(data))
+        this.props.actions.addRow(data)
     }
 
     renderCol (col) {

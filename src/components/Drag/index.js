@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-// import renderActions from '@/reducers/render/renderActions'
+import * as modulesActions from '@/reducers/modules/modulesActions'
 import './index.less'
 
 function mapStateToProps (state) {
@@ -10,7 +10,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        // actions: bindActionCreators(renderActions, dispatch)
+        actions: bindActionCreators(modulesActions, dispatch)
     }
 }
 
@@ -22,7 +22,8 @@ class Drag extends Component {
     onDragStart = (event) => {
         console.log('onDragStart')
         const { item } = this.props
-        event.dataTransfer.setData('text', JSON.stringify(item))
+        this.props.actions.addDraggingModule(item)
+        // event.dataTransfer.setData('text', JSON.stringify(item))
         // this.props.actions.addRow(item)
     }
 
