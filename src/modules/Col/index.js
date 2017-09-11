@@ -82,7 +82,6 @@ class Col extends Component {
         let moduleNode = null
         if (module && module.component) {
             const ModuleComponent = module.component
-            console.log('ModuleComponent:', ModuleComponent)
             moduleNode = (
                 <ModuleComponent
                     data={module.data}

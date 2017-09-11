@@ -60,8 +60,7 @@ class Drop extends Component {
             return (
                 <Row key={`row_${index}`}
                     rowIndex={index}
-                    cols={cur.value}
-                    modules={cur.modules}
+                    cols={cur.cols}
                     >
                 </Row>
             )

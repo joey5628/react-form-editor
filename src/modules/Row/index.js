@@ -8,15 +8,14 @@ export default class Row extends Component {
     }
 
     renderCol () {
-        console.log('row props:', this.props)
-        let { cols, rowIndex, modules } = this.props
+        let { cols, rowIndex } = this.props
         return cols.map((cur, colIndex) => {
             return (
                 <Col key={`col_${colIndex}`}
                     rowIndex={rowIndex}
                     colIndex={colIndex}
-                    module={modules[colIndex]}
-                    span={cur}/>
+                    module={cur.module}
+                    span={cur.span}/>
             )
         })
     }
