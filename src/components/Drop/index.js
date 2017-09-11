@@ -24,9 +24,10 @@ class Drop extends Component {
     }
 
     onDragEnter = (event) => {
-        console.log('onDragEnter')
-        console.log(event.target)
-        this.refs.drop.classList.add('drop-hover');
+        let { draggingModule } = this.props.modules
+        if (draggingModule.type === 'layout') {
+            this.refs.drop.classList.add('drop-hover');
+        }
     }
 
     onDragOver = (event) => {
@@ -34,9 +35,10 @@ class Drop extends Component {
     }
 
     onDragLeave = (event) => {
-        console.log('onDragLeave')
-        console.log(event.target)
-        this.refs.drop.classList.remove('drop-hover');
+        let { draggingModule } = this.props.modules
+        if (draggingModule.type === 'layout') {
+            this.refs.drop.classList.remove('drop-hover');
+        }
     }
 
     onDrop = (event) => {
@@ -44,29 +46,23 @@ class Drop extends Component {
         if (event.stopPropagation) {
             event.stopPropagation()
         }
-
-        // let data = event.dataTransfer.getData('text')
-        let data = this.props.modules.draggingModule
-        console.log('data:', data);
-        this.refs.drop.classList.remove('drop-hover');
-        this.props.actions.addRow(data)
-    }
-
-    renderCol (col) {
-        return col.map((cur, index) => {
-            return (
-                <Col key={`col_${index}`}
-                    span={cur}/>
-            )
-        })
+        let { draggingModule } = this.props.modules
+        if (draggingModule.type === 'layout') {
+            // let data = event.dataTransfer.getData('text')
+            this.refs.drop.classList.remove('drop-hover');
+            this.props.actions.addRow(draggingModule)
+        }
     }
 
     renderRow () {
         const { render } = this.props
         return render.map((cur, index) => {
             return (
-                <Row key={`row_${index}`}>
-                    {this.renderCol(cur.value)}
+                <Row key={`row_${index}`}
+                    rowIndex={index}
+                    cols={cur.value}
+                    modules={cur.modules}
+                    >
                 </Row>
             )
         })

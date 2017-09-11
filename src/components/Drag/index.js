@@ -27,12 +27,17 @@ class Drag extends Component {
         // this.props.actions.addRow(item)
     }
 
+    onDragEnd = (event) => {
+        console.log('onDragEnd')
+    }
+
     render() {
         const { item } = this.props
         return (
             <div className="drag" title={item.title}
                 draggable
-                onDragStart={this.onDragStart}>
+                onDragStart={this.onDragStart}
+                onDragEnd={this.onDragEnd}>
                 {item.alias}
             </div>
         )

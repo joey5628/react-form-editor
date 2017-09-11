@@ -1,15 +1,45 @@
+/**
+ * @fileOverView 布局中的列组件
+ * @author zhangyi
+ * @date 2017-09-11
+ */
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as renderActions from '@/reducers/render/renderActions'
 import './index.less'
 
-export default class Col extends Component {
+function mapStateToProps (state) {
+    return {
+        render: state.render,
+        modules: state.modules
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: bindActionCreators(renderActions, dispatch)
+    }
+}
+
+class Col extends Component {
     constructor(props) {
         super(props)
     }
 
+    shouldComponentUpdate(nextProps) {
+        const preProps = this.props
+        if (nextProps.render != preProps.render) {
+            return true
+        }
+        return false
+    }
+
     onDragEnter = (event) => {
-        console.log('onDragEnter')
-        console.log(event.target)
-        this.refs.drop.classList.add('drop-hover');
+        let { draggingModule } = this.props.modules
+        if (draggingModule.type !== 'layout') {
+            this.refs.drop.classList.add('drop-hover');
+        }
         if (event.stopPropagation) {
             event.stopPropagation()
         }
@@ -20,9 +50,10 @@ export default class Col extends Component {
     }
 
     onDragLeave = (event) => {
-        console.log('onDragLeave')
-        console.log(event.target)
-        this.refs.drop.classList.remove('drop-hover');
+        let { draggingModule } = this.props.modules
+        if (draggingModule.type !== 'layout') {
+            this.refs.drop.classList.remove('drop-hover');
+        }
         if (event.stopPropagation) {
             event.stopPropagation()
         }
@@ -33,16 +64,36 @@ export default class Col extends Component {
         if (event.stopPropagation) {
             event.stopPropagation()
         }
+        let { modules, rowIndex, colIndex } = this.props
+        let draggingModule = modules.draggingModule
+        if (draggingModule.type !== 'layout') {
+            this.refs.drop.classList.remove('drop-hover');
+            this.props.actions.addModule({
+                rowIndex,
+                colIndex,
+                draggingModule
+            })
+        }
+    }
 
-        let data = event.dataTransfer.getData('text')
-        console.log('data:', data);
-        this.refs.drop.classList.remove('drop-hover');
-        this.props.actions.addRow(JSON.parse(data))
+    //渲染拖入的组件
+    renderModuleComponent () {
+        const { module } = this.props
+        let moduleNode = null
+        if (module && module.component) {
+            const ModuleComponent = module.component
+            console.log('ModuleComponent:', ModuleComponent)
+            moduleNode = (
+                <ModuleComponent
+                    data={module.data}
+                />
+            )
+        }
+        return moduleNode
     }
 
     render() {
         const { span } = this.props
-        console.log('col span:', span)
         return (
             <div className={`col-md-${span} drop-default`}
                 ref="drop"
@@ -50,7 +101,10 @@ export default class Col extends Component {
                 onDragOver={this.onDragOver}
                 onDragLeave={this.onDragLeave}
                 onDrop={this.onDrop}>
+                { this.renderModuleComponent() }
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Col)
