@@ -7,6 +7,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as renderActions from '@/reducers/render/renderActions'
+import * as propertyActions from '@/reducers/property/propertyActions'
+import CtrlBar from '@/components/CtrlBar'
 import './index.less'
 
 function mapStateToProps (state) {
@@ -18,7 +20,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        actions: bindActionCreators(renderActions, dispatch)
+        actions: bindActionCreators({...renderActions, ...propertyActions}, dispatch)
     }
 }
 
@@ -91,15 +93,49 @@ class Col extends Component {
         return moduleNode
     }
 
+    onClick = (event) => {
+        const target = event.target
+        const clientRect = target.getBoundingClientRect()
+        const { span, rowIndex, colIndex, module } = this.props
+
+        this.props.actions.setSelectedClientRect(clientRect)
+
+        if (this.refs.drop != target) {
+            // this.props.actions.setSelectedModule({
+            //     clientRect,
+            //     module: {
+            //         type: 'layout',
+            //         rowIndex,
+            //         colIndex,
+            //         span
+            //     }
+            // })
+        } else {
+            // this.props.actions.setSelectedModule({
+            //     clientRect,
+            //     module: {
+            //         type: 'layout',
+            //         rowIndex,
+            //         colIndex,
+            //         module
+            //     }
+            // })
+        }
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        }
+    }
+
     render() {
         const { span } = this.props
         return (
-            <div className={`col-md-${span} drop-default`}
+            <div className={`col-md-${span} drop-default col`}
                 ref="drop"
                 onDragEnter={this.onDragEnter}
                 onDragOver={this.onDragOver}
                 onDragLeave={this.onDragLeave}
-                onDrop={this.onDrop}>
+                onDrop={this.onDrop}
+                onClick={this.onClick}>
                 { this.renderModuleComponent() }
             </div>
         )

@@ -39,11 +39,13 @@ export default function renderReducer (state = initialState, action) {
                 ...state,
                 rowData
             ]
+
         case t.ADD_MODULE:
             const { rowIndex, colIndex, draggingModule } = action.payload
             state[rowIndex].cols[colIndex].module = draggingModule
             let newState = [...state]
             return newState
+
     }
     return state
 }

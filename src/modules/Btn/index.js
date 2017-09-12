@@ -14,14 +14,16 @@ export default class Btn extends Component {
         })
         return classNames.join(' ')
     }
-
+    
     render () {
         let { data } = this.props
         let classNames = this.getClassNames(data)
-        console.log('classNames:', classNames)
         return (
             <div className="module-box">
-                <button type="button" className={classNames}>{data.content.value}</button>
+                <button type="button" className={classNames}
+                    onClick={this.onClick}>
+                    {data.content.value}
+                </button>
             </div>
         )
     }

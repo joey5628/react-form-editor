@@ -1,24 +1,8 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as renderActions from '@/reducers/render/renderActions'
 import { Col, Row } from '@/modules/index'
 import './index.less'
 
-function mapStateToProps (state) {
-    return {
-        render: state.render,
-        modules: state.modules
-    }
-}
-
-function mapDispatchToProps (dispatch) {
-    return {
-        actions: bindActionCreators(renderActions, dispatch)
-    }
-}
-
-class Drop extends Component {
+export default class Drop extends Component {
     constructor(props) {
         super(props)
     }
@@ -79,5 +63,3 @@ class Drop extends Component {
         )
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Drop)

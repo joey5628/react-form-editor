@@ -11,7 +11,6 @@ export default class Palette extends Component {
     }
 
     onDragStart = (e) => {
-        console.log('onDragStart')
         // console.log('e.target:', e.target)
         // e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setData("text/html", e.target.outerHTML);

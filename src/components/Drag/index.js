@@ -20,7 +20,6 @@ class Drag extends Component {
     }
 
     onDragStart = (event) => {
-        console.log('onDragStart')
         const { item } = this.props
         this.props.actions.addDraggingModule(item)
         // event.dataTransfer.setData('text', JSON.stringify(item))

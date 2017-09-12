@@ -5,10 +5,12 @@
 import { combineReducers } from 'redux'
 import render from './render/renderReducer'
 import modules from './modules/modulesReducer'
+import property from './property/propertyReducer'
 
 const rootReducer = combineReducers({
     render,
-    modules
+    modules,
+    property
 })
 
 export default rootReducer
